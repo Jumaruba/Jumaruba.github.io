@@ -1,16 +1,11 @@
 ---
-layout: single 
+title:  Lecture 2 - Processing and Scaling
 toc: true
-toc_label: Contents
-search: true
-author_profile: true
-title:  "Lecture 2 - Processing and Scaling"
-date:   2022-04-22 10:57:16 +0000
-categories: lectures
-grid: true
-toc_sticky: false
+author: jumaruba
+date: 2022-04-26 18:32:00 -0500
+categories: [Theory]
+tags: [distributed systems]
 ---
-
 
 # Threads
 

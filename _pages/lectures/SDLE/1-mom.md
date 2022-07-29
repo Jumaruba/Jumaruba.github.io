@@ -1,5 +1,5 @@
 ---
-title: MOM (Message Oriented Middleware)
+title: Lecture 1 - MOM (Message Oriented Middleware)
 toc: true
 author: jumaruba
 date: 2022-04-25 18:32:00 -0500

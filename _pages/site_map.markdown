@@ -1,22 +1,19 @@
 ---
-layout: single 
+layout: post
+title: Site map
+author: jumaruba
+date: 2022-04-25 18:32:00 -0500
 toc: true
-toc_label: Contents
-search: true
-author_profile: true
-title:  "Site Map"
-date:   2022-04-21 10:57:16 +0000
-categories: site-map
-grid: true
-toc_sticky: false
+math: true 
+pin: true
 ---
+
 
 ## Books resumes 
 - [Atomic Habits]({% link _pages/books/atomic_habits.md %})   
 
 ## Random Readings
 - [Vietnam War]({% link _pages/others/vietnam-war.md %})    
-
 
 ## Programming 
 - [React]({%link _pages/others/react/react.pdf%})  

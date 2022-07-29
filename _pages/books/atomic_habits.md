@@ -1,15 +1,8 @@
 ---
-layout: single 
 toc: true
-toc_label: Contents
-search: true
-author_profile: true
-title:  "Atomic habits"
-date:   2022-06-22 10:57:16 +0000
-categories: books
-grid: true
-toc_sticky: false
-permalink: "/books/atomic_habits"
+title: Atomic Habits resume
+author: jumaruba
+date: 2022-06-22 18:32:00 -0500
 ---
 
 This is brief resume of the book atomic habits.
