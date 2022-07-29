@@ -10,7 +10,7 @@ This is brief resume of the book atomic habits.
 # Four laws of behaviour change 
 
 ## Positive behaviour
-
+ 
 | Actions  | How to create a good habit | 
 | --- | --- |
 | **Cue** | **Make it obvious (1st Law)**| 
