@@ -1,0 +1,104 @@
+---
+title: Partial order and Lattice explained
+author: jumaruba
+date: 2022-04-25 18:32:00 -0500
+categories: [Theory]
+tags: [distributed systems]
+toc: true
+math: true 
+---
+
+This is a simplified explanation for the concepts of partial order and lattice used in distributed systems. The content explained here is deeply based on the sources. 
+
+# Motivation
+
+When someone is cooking, we must spice the vegetables **before** cooking them. But some other processes may happen at the same time: while the vegetables are cooking, the dishes may be washed.  
+
+This is scenario that can be represented by a partial order.   
+
+# Partial Order Definition 
+
+In our example, we could define a ≺ b, which means: "a must be done before b can be done".  
+
+# Comparability 
+
+When a ≺ b or b ≺ a, we say that a and b are **comparable**, otherwise they are **incomparable** and happen in paralalel.  
+
+# Total Order Definition 
+
+If for every two pairs in a set `S` are comparable, then we say that `S` is a **totally ordered set**. All the pairs have an order.  
+
+# Hasse Diagrams 
+
+The Hasse diagrams is convenient graphical representation of a partial order. Since we know that the relation must be [reflexive](https://www.cuemath.com/algebra/reflexive-relations/) and [transitive](https://www.cuemath.com/algebra/transitive-relations/), we can:  
+ 
+- Remove the self loops (from the reflexice property);  
+- Remove all transitive edges;  
+- Remove directions on edges assuming that they are oriented upwards;  
+
+![Hasse Diagram](/assets/images/2022-04-25-lattice/hasse-diagram.png)  
+
+An utilization example is:   
+
+![Hasse Example](/assets/images/2022-04-25-lattice/hasse-example.png)   
+
+# Extremal Elements
+
+## Maximal
+
+An element `a` is maximal, if it doesn't exists a `b` where `a ≺ b`. There's just one maximum element. 
+
+## Minimal 
+
+An element `a` is minimal, if doesn't exists a `b` where `b ≺ a`. Tehre's just one minimum element. 
+
+## Upper bound
+
+Considering that there's a set A⊆S and `u`∈ S. We say that `u` is the **upper bound** of A if, {∀a ∈ A, a ≺ u}. An element `x` is the **least upper bound on A** if `x` is the **upper bound** for A, but is less than all the other upper bounds on A. 
+
+## Lower bound 
+
+Considering that there's a set A⊆S. If `l` is an element of S, we say that `l` is the lower bound of A, if {∀a ∈ A, l ≺ a}. Yet, an element `x` is the **greatest lower bound** if `X` is the **lower bound** for A, but is less than all the other upper bounds on A. 
+
+## Examples 
+
+1) What are the minimal, maximal, minimum and maximum elements? 
+
+
+![Example 1](/assets/images/2022-04-25-lattice/example1-lattice.png)    
+
+- Maximal: {c,d}
+- Minimal: {a,b}
+
+Since there're no unique minimal and maximal elements, there're no minimum and maximum elements.   
+
+2) Give the lower/upper bounds and gld/lub of the sets:  
+![Example 2](/assets/images/2022-04-25-lattice/example2-lattice.png)   
+
+- {d,e,f}:
+
+    **Lower bound**: ⦰, no lub; there is no element that is less than the three elements at the same time.  
+   **Upper bound**: ⦰, no glb; there is no element that is higher than the three elements at the same time.  
+
+
+
+- {a,c}: 
+
+    **Lower bound**: ⦰, no lub; there's no element that is less than both elements at the same time.  
+    **Upper bound**: {h}, lub: h; h is higher than both elements at the same time. 
+
+
+- {b,d}:
+
+    **Lower bound**: {b}, glb: b  
+    **Upper bounds**: {d,g}, lub: d; because d ≺ g.   
+
+
+# Lattices 
+The lattice is a special strucutre, where every **pair** of elements has a lowest upper bound and a greates lower bound.  
+Thus, to show that a lattice exists, we must find at least one pair that doesn't have a glb/lub.  
+
+
+# Sources 
+
+- https://www.dsi.unive.it/~avp/03_AVP_2015.pdf

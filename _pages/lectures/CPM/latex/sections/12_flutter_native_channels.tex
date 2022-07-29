@@ -1,0 +1,22 @@
+We can use a function called \texttt{invokeMethod('method\_name', parameters)} to 
+call native functions from a specific system. 
+
+\begin{lstlisting}
+const channel = MethodChannel('API_name');
+final ResultType response = await channel.invokeMethod('method\_name', parameters);
+\end{lstlisting}
+
+The channel can also define Callback methods to be called from native code.
+
+\subsection{Catching native events}
+Can be done using an \texttt{EventChannel} between the Dart side and the native side.
+
+On the Dart side a receiver should be established defining callbacks called when an
+event is generated in the native side.
+
+The native side establishes a \texttt{StreamHandler} attached to the channel, together with an
+\texttt{EventSink}, capable of generating events that can carry data. It's possible to also
+generate error events.
+
+The appropriate Dart side callback is called whenever an event is generated.
+

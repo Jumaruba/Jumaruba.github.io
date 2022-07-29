@@ -1,0 +1,44 @@
+You can think of \texttt{useEffect} as \texttt{componentDidMount}, \texttt{componentDidUpdate},
+and \texttt{componentWillUnmount} combined. 
+
+\subsection{Effect without cleanup}
+
+Sometimes, we want to run some additional code \textbf{after} React component
+has updated the DOM. 
+In React the \texttt{render} method, shouldn't cause any side effect. We usually
+want to perform effect \textbf{after} React has updated the DOM. 
+
+This is why usually we put side effects in \texttt{componentDidMount} and 
+\texttt{componentDidUpdate}. 
+
+An example is:
+
+\begin{lstlisting}
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+  }
+
+  componentDidMount() {
+    document.title = `You clicked ${this.state.count} times`;
+  }
+  componentDidUpdate() {
+    document.title = `You clicked ${this.state.count} times`;
+  }
+
+  render() {
+    return (
+      <div>
+        <p>You clicked {this.state.count} times</p>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          Click me
+        </button>
+      </div>
+    );
+  }
+}
+\end{lstlisting}
+

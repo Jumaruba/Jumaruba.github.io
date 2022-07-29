@@ -1,0 +1,94 @@
+[slide 22]  Having a type inheritance is allowed.  
+
+\subsection{Domain definition}
+A type can be seen as a domain. 
+
+A user can define a type as follow:
+\begin{lstlisting}[language=sql]
+    create type address\_t as object (
+        street varchar2(30)
+    );
+\end{lstlisting} 
+
+The \texttt{as object} declares that the table is actually an object. 
+\textbf{Types does not take spaces}. They are just definitions. 
+
+
+\subsection{Objects in table columns}
+Types can be used a domaisn in table columns
+\begin{lstlisting}[language=sql]
+    create table members(
+        ID number(10) primary key, 
+        address address_t
+    )
+\end{lstlisting} 
+
+As it's possible to see in the code above, the \texttt{members} talbe uses the type \texttt{address\_t}. The first column in the \texttt{members} table is a scalar value, but the second one is filled with objects. The objects are stored in the table row. 
+
+\subsection{Object creation} 
+
+Objects uses constructors to be created. 
+\begin{lstlisting}[language=sql]
+    insert into members(ID, address) values (3658, address\_t('Rua legal'));
+\end{lstlisting} 
+
+If we perform a query on a table that contains a column the result will be less detailed.
+\begin{lstlisting}[language=sql]
+select * from members; 
+\end{lstlisting} 
+
+But if we apply some recursion, we have more details: 
+
+\begin{lstlisting}[language=sql]
+    select id, m.address.street from members m where id=3658; 
+\end{lstlisting} 
+
+
+\subsection{object tables} 
+
+In this case each row of the table is an object. 
+
+\begin{lstlisting}[language=sql]
+    create type department_t as object(
+        acronym varchar2(5), 
+        designation varchar2(20),
+        director number(10)
+    );
+\end{lstlisting} 
+
+We can use \texttt{departments} as a normal table, but we may force the object view:
+
+\begin{lstlisting}[language=sql]
+    select value(d) from departments d where director=3658;
+\end{lstlisting} 
+
+Usign value(d) we gonna gave different values. 
+
+\subsubsection{References} 
+
+A big difference from teh column objects is that in object-row we have addresses. To get this pointer, we use the \texttt{ref}. 
+
+\begin{lstlisting}[language=sql]
+    select ref(d) from departments d; 
+\end{lstlisting}  
+
+The interface will autoamtically the converts the address to the object. But in programming level, the difference can be seen. 
+
+We can say that in a table we gonna add pointers to a table with a specific type:
+\begin{lstlisting}[language=sql]
+    alter table members add(department ref department_t)
+\end{lstlisting} 
+
+But how can we use the pointers? There are some queries that take advantages on this. 
+
+\begin{lstlisting}[language=sql]
+    update members set department = (select ref(d) from departments d where sigla='CLU' where id=3658)
+\end{lstlisting}  
+
+The pointers are defined to a type, not a table. The foreign keys are references a table, but with pointers it's possible to point to several tables.  
+
+[Check slide 32].  
+
+\subsection{Dereferencing an object} 
+[slide 33] we are able to get a column from another table without performing a join. In the slides examples we're getting \texttt{m.department.director} column, which is in another table. 
+

@@ -1,0 +1,154 @@
+\subsection{Pages}
+
+Page or screen is a Widget tree aka a Route. 
+
+The App widget defines the home route and others, from Home, routes, and initialRoute 
+properties (on the App constructor).
+
+The home is the initial screen (widget tree) shown. 
+Alternatively, a set of routes (pages) can be defined and an initialRoute specified.
+
+\subsection{Navigation}
+The Navigator widget allows the replacement of a page by another using a stack discipline.
+It is possible to create a set of navigation routes previously in the app, or build each one
+when we want to navigate to it. Initially the App has already a Navigator. We can use it or
+create a new independent one with new routes. 
+
+The Navigator defines a set of static methods that manipulate the stack of pages (routes):
+
+\begin{itemize}
+    \item \texttt{push(context, Route)} and \texttt{pop(context)}
+    \item \texttt{pushName()}, \texttt{removeRoute()}, \texttt{replace()},...
+\end{itemize}
+
+\subsubsection{Prebuild route table}
+It's possible to prebuild a route table in the App widget and put it in the routes property: 
+\begin{lstlisting}
+void main() { 
+    runApp(MaterialApp( 
+        home: MyAppHomePage(), // becomes the route named '/' 
+        routes: { 
+        '/a': (BuildContext context) => MyPage1(title: 'page A'), 
+        '/b': (BuildContext context) => MyPage2(title: 'page B'),   
+        '/c': (BuildContext context) => MyPage3(title: 'page C'), }
+    ));
+    } 
+\end{lstlisting}
+
+\subsubsection{Create pages dynamically}
+New screens or pages (widgets trees) can be built from a PageRoute (derived from)
+e.g., the MaterialPageRoute, requires a WidgetBuilder (a function) that builds the tree
+from context. 
+
+\begin{lstlisting}
+Navigator.push(context, 
+MaterialPageRoute(builder: (context) => MyPage1(title: "page A")));
+\end{lstlisting}
+
+\subsubsection{Navigation forward and backward}
+
+\begin{lstlisting}[title=Navigate forward]
+// within a widget
+... 
+Navigator.pushNamed(context, '/b');
+\end{lstlisting}
+
+\begin{lstlisting}[title=Navigate backward]
+// within the navigated page
+...
+Navigator.pop(context);
+\end{lstlisting}
+
+\subsubsection{Passing data to a route}
+
+\begin{lstlisting}[title=Class to be passed]
+class ScreenArguments {
+    final String title;
+    final String message;
+    ScreenArguments(this.title, this.message);
+} 
+\end{lstlisting}
+
+\begin{lstlisting}[title=Class to create page]
+class HomePage extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) {
+        return ...
+    ...
+    onPressed: () {
+        Navigator.pushNamed(context, '/page2',
+        arguments: ScreenArguments('Title', 'Message'));
+    }
+    ...
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[title=Page]
+// App root widget
+...
+return MaterialApp(
+    routes: { '/page2': (context) => SecondPage() },
+    home: HomePage() // route name: '/'
+)
+...
+class SecondPage extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) {
+        final ScreenArguments args = ModalRoute.of(context).settings.arguments;
+        return ...
+            ... args.title ...
+            ... args.message ...
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Return a value using pop}
+When we do a \texttt{Navigator.pop(context)}, \texttt{pop()} accepts a second parameter that is a
+result. It can be of any type.
+
+This result is returned by the \texttt{Navigator.push(...)} that created the popped page.
+The result comes in a \texttt{Future}, resolved only when the page is popped.
+
+\begin{lstlisting}[title=Example]
+// caller 
+final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => SomePage())); 
+
+// New page - SomePage
+Navigator.pop(context, 'Some message');
+\end{lstlisting}
+
+
+\subsection{External HTTP Calls}
+Flutter does not have a direct API for web requests.
+But there are several packages in the package repository (pub.dev).
+
+One of the simplest is the http package (https://pub.dev/packages/http)
+For using external packages, it is necessary to import them in code, and to
+declare them in the project pubspec.yaml file. Finally, it must be downloaded.
+
+\begin{tcolorbox}
+The declaration and installation can be done from the command line, or from the
+used IDE:
+
+\texttt{\$ flutter pub add http}
+\end{tcolorbox}
+
+For example, to define a function to perform a REST GET request:
+
+\begin{lstlisting}
+    import 'package:http/http.dart';
+    ...
+    Future<String> getResponse() async {
+    final response = await http.get(Uri.http('data.fixer.io', '/api/latest',
+        { 'access_key': '<your API key>',
+            'base': 'EUR',
+            'symbols': 'USD,GBP' 
+        }
+    ));
+    if (response.statusCode == 200)
+        return response.body;
+    else
+        throw Exception('HTTP failed');
+    }
+\end{lstlisting}

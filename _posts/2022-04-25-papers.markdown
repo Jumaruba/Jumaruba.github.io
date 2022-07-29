@@ -1,0 +1,12 @@
+---
+title: Simplified papers
+author: jumaruba
+date: 2022-04-25 18:32:00 -0500
+categories: [Theory]
+pin: true
+---
+
+This is a compilation and resume of some papers that I've read. 
+
+- [Delta State Replication]({% link _pages/papers/delta_crdts/master.pdf %})
+
