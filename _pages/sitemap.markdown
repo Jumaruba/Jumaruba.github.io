@@ -1,11 +1,9 @@
 ---
-layout: post
+layout: post 
+toc: true
 title: Site map
 author: jumaruba
 date: 2022-04-25 18:32:00 -0500
-toc: true
-math: true 
-pin: true
 ---
 
 

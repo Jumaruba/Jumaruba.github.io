@@ -4,7 +4,6 @@ author: jumaruba
 date: 2022-04-22 10:57:16 +0000
 categories: [Theory]
 tags: [distributed systems]
-math: true
 permalink: /sdle/
 ---
 

@@ -1,11 +1,11 @@
----
+--- 
+toc: true
 title: FSI Summary
-author: Juliane Marubayashi
+author: jumaruba
 date: 2022-04-22 10:57:16 +0000
 categories: [Theory]
 tags: [security]
-toc: true
-math: true 
+permalink: /fsi/
 ---
 
 # Lectures  

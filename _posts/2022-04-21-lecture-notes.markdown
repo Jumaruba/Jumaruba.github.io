@@ -27,6 +27,6 @@ Notes from the Computer Security Foundations lectures. The goal of this Curricul
 - [Resumo da dona Diana](https://docs.google.com/document/d/1wHYvwEqmxLUMui_ryih-lx2ctRM4-Ejee78Oj8ZIPW4/edit)
 
 
-[1]:{{site.url}}/sdle 
-[2]:{{site.url}}/fsi
+[1]:{{site.url}}/sdle/
+[2]:{{site.url}}/fsi/
 
