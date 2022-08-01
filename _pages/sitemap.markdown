@@ -17,6 +17,7 @@ pin: true
 
 ## Programming 
 - [React]({%link _pages/others/react/react.pdf%})  
+- [System design]({%link _pages/others/system-design/systemdesign.pdf%})   
 
 ## Books 
 - [The art of computer programming]({% link _pages/books/pdfs/The_Art_of_Computer_Programming - Vol 1.pdf %})
