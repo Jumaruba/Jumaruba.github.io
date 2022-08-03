@@ -1,0 +1,78 @@
+\documentclass{article}
+
+\usepackage{import}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{indentfirst}
+\usepackage[paper=a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry} 
+\newcommand{\incfig}[2][1]{%
+    \def\svgwidth{#1\columnwidth}
+    \import{./figures/}{#2.pdf\_tex}
+}  
+
+% https://tex.stackexchange.com/questions/141569/highlight-textcolor-and-boldface-simultaneously
+\usepackage{xcolor}
+\usepackage{color, soul} 
+\usepackage{tcolorbox}  % Creating colored boxes  
+\counterwithin{table}{section}    
+
+% Add a subsubsubsection 
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+% Code 
+\usepackage{listings}   
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=java,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+}  
+
+\pdfsuppresswarningpagegroup=1 
+
+\title{System Design for Interviews}
+\author{Juliane Marubayashi}
+\date{ 2022-08-01 } 
+
+
+\begin{document}
+    \maketitle
+    \newpage
+    \tableofcontents
+    \newpage
+    \textbf{Attention before reading}: this document is not original. It is deeply based on the resources.
+    Thus, I don't have any credit on the biggest part of this text. 
+    \section{Basics of System Design}
+    \input{sections/01_basics.tex}
+    \section{Interservice Communication}
+    \input{sections/02_interservice_communication.tex}
+    \section{Protocols for communication}
+    \input{sections/03_protocol_communication.tex}
+    
+    
+\end{document}  
+
+% ---------------------
+% Bibliography
+% --------------------- 
+% A folder bst/report.bib should be created 
+\bibliographystyle{unsrt}
+\bibliography{bst/report}  
+
+

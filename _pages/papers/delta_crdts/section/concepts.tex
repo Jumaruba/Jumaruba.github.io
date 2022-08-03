@@ -1,0 +1,34 @@
+\subsection{Eventual Consistency}
+
+A relaxed consistency model, mostly used when the system must keep available even in failures and when the consistency can be delayed. A typical approach is to allow replicas of a \textbf{distributed object} to diverge temporaly and evetually be \textbf{reconciled} into a common state. 
+
+
+\subsection{CRDT design}
+The design of a CRDT supports two designs: State-Based and Op-Based designs. 
+
+\subsubsection{Op-Based} 
+
+The Op-Based operation is separated in two steps:
+\begin{itemize}
+    \item \textit{prepare}: the operation is just performed in the local replica and this same replica uses the current state and the operation to generate a message that represents the operation.
+    \item \textit{effect}: once the message is ready, it is \textbf{shipped} to all the other replicas and applied using the effect. 
+\end{itemize}
+
+\subsubsection{State-Based}
+
+In this type of design the operation is \textbf{just applied in the local replica} updating on the local state. A replica periodically propagates its local changes by propagating its entire state. 
+
+A received state is \textbf{incorporated} with the local state via \textit{merge} function that deterministically \textbf{reconciles} both states. The merge is defined as \textit{join} . 
+
+\subsubsection{Comparation}
+
+The Op-Based approach, however has a few disadantages when compared to the State-Based replication:
+
+\begin{itemize}
+    \item The message must be sent in a channel that guarantees the exactly-once causal broadcast. However, this is a hard guarantee to be mantained. 
+    \item As the system grows, checking membership is problematic
+    \item The operations must be executed individually in all nodes.
+\end{itemize}
+
+The State-Based approach is free of these limitations/problems, but major drawback is the communication overhead of shipping the entire state. States can grow to large sizes and this approach may not be feasible. 
+

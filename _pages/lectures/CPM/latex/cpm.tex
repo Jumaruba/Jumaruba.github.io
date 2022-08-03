@@ -1,0 +1,106 @@
+\documentclass{article}
+
+\usepackage{import}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{indentfirst}
+\usepackage[paper=a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry} 
+\newcommand{\incfig}[2][1]{%
+    \def\svgwidth{#1\columnwidth}
+    \import{./figures/}{#2.pdf\_tex}
+}  
+
+% https://tex.stackexchange.com/questions/141569/highlight-textcolor-and-boldface-simultaneously
+\usepackage{xcolor}
+\usepackage{color, soul} 
+\usepackage{tcolorbox}  % Creating colored boxes  
+\counterwithin{table}{section}    
+
+% Add a subsubsubsection 
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+% Code 
+\usepackage{listings}   
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=java,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+}  
+
+\pdfsuppresswarningpagegroup=1 
+
+\title{Android study}
+\author{Juliane Marubayashi}
+\date{ 2022-04-19 } 
+
+
+\begin{document}
+    \maketitle
+    \newpage
+    \tableofcontents
+    \newpage
+    \textbf{Attention before reading}: this document is not original. It is deeply based on the resources.
+    Thus, I don't have any credit on the biggest part of this text. 
+    \section{Lecture 1 - Basic Android}
+    \input{sections/01_basic_android.tex}
+    \section{Lecture 2 - Applications, activities, interface}
+    \input{sections/02_applications_activities_interface}
+    \section{Lecture 3 - Fragments}
+    \input{sections/03_fragments.tex}
+    \section{Lecture 4 - NFC}
+    \input{sections/04_android_nfc.tex}
+    \newpage
+    \section{Lecture 5 - Android HTTP and Asynchronous processing}
+    \input{sections/05_http_requesting_and_async.tex}
+    \section{Lecture 6 - Broadcast, Services and Notifications}
+    \input{sections/06_broadcast_services_notifications.tex}
+    \section{Lecture 7 - Sensors}
+    \input{sections/07_sensors.tex}
+    \section{Lecture 8 - soft keyboard, graphics and media}
+    \input{sections/08_graphics_and_media.tex}
+    \section{Lecture 9 - Introduction to flutter}
+    \input{sections/09_flutter_introduction.tex}
+    \section{Lecture 10 - Flutter pages, navigation, drawing and external calls}
+    \input{sections/10_flutter_pages_navigation_drawing.tex}
+    \section{Lecture 11 - Flutter app architecture}
+    \input{sections/11_flutter_app_architecture.tex}
+    \newpage
+    \section{Lecture 12 - Flutter native channels}
+    \input{sections/12_flutter_native_channels.tex}
+    \section{Lecture X - MVVM}
+    \input{sections/13_MVVM.tex} 
+    \section{Resources}
+    IOC: https://www.sitepoint.com/three-design-patterns-that-use-inversion-of-control/  \\
+    Threads: https://www.oreilly.com/library/view/efficient-android-threading/9781449364120/ch04.html  \\
+    Audio Media: https://www.tutlane.com/tutorial/android/android-audio-media-player-with-examples \\ 
+    Canvas API: https://www.geeksforgeeks.org/how-to-use-canvas-api-in-android-apps/ \\ 
+    Xamarim MVVM: https://docs.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm \\ 
+    Xamarim MVVM: https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android/ \\ 
+    Reducer: https://blog.logrocket.com/flutter-redux-complete-tutorial-with-examples/ \\ 
+\end{document}  
+
+% ---------------------
+% Bibliography
+% --------------------- 
+% A folder bst/report.bib should be created 
+\bibliographystyle{unsrt}
+\bibliography{bst/report}  
+
+

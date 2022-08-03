@@ -1,0 +1,59 @@
+There're three modes that the NFC can work:
+
+\begin{itemize}
+    \item Read and write tags (good, API 10);
+    \item Peer-to-Peer (beam/limited, API 14);
+    \item Card emulator (real/emulated SE, API 19); 
+\end{itemize}
+
+
+The android hardware can include a \textbf{secure element} which is similar to a smartcard running 
+JavaCardOS. For more information about JavaCardOS you can read:
+
+https://www.oracle.com/java/technologies/java-card/javacard1.html
+
+\subsection{NdefMessage class} 
+Android supports NFC messages by using \texttt{NdefMessage} class.
+
+\begin{lstlisting}[title=Using NdefMessage class]
+val mimeType = "application/my.mime.type" // a custom mime type
+val payload = "This is a TNF_MIME_MEDIA"
+val mimeRecord = NdefRecord.createMime(mimeType, payload.getBytes(Charsets.UTF_8))
+val newMessage = NdefMessage(arrayOf(mimeRecord))
+\end{lstlisting}
+
+The constructor \texttt{NdefMessage} accepts a list of records 
+(\texttt{NdefRecord}) and these methods can be obtained through 
+\texttt{getRecords()} method. 
+
+The \texttt{NdefRecord} constructor is: \texttt{NdefRecord(tnf: Short, 
+type: ByteArray, id: ByteArray, payload: ByteArray)}. 
+
+The type, id and payload are conditioned by the TNF field. 
+
+\begin{itemize}
+    \item \textbf{Tags}:  TNF values of TNF\_ABSOLUTE\_URI or TNF\_WELL\_KNOWN 
+    are usually used, with corresponding values of type, id, and payload. 
+    \item \textbf{Device to device messaging}:  the TNF value is usually 
+    TNF\_MIME\_MEDIA with a custom media type in type, an id of 0 bytes, 
+    and a payload.
+\end{itemize}
+
+The \texttt{NdefRecord} class has get methods for the TNF, type, id, and payload constituents.
+It has also static \texttt{NdefRecord} methods for building some kinds of records, like
+\texttt{createMime()}.
+
+\subsection{Setup manifest}
+
+The following code must be added:
+\begin{lstlisting}
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-sdk android:minSdkVersion="10"/>
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+\end{lstlisting}
+
+Not finished.......................................................AAAAAAHHH!
+
+
+
+

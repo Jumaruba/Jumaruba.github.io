@@ -1,0 +1,60 @@
+<mxfile host="65bd71144e">
+    <diagram id="-V4vmSfKmL14RygNXbYD" name="Page-1">
+        <mxGraphModel dx="621" dy="580" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="7" style="edgeStyle=none;html=1;" edge="1" parent="1" source="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="310" y="290" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="8" value="set as the content view" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="7">
+                    <mxGeometry x="0.2267" y="2" relative="1" as="geometry">
+                        <mxPoint x="-22" y="-8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="9" value="setContentView(myView)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="7">
+                    <mxGeometry x="0.8133" y="-5" relative="1" as="geometry">
+                        <mxPoint x="-66" y="5" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="11" style="edgeStyle=none;html=1;entryX=0.007;entryY=0.047;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="4">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="160" y="228" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="new... (context)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="11">
+                    <mxGeometry x="0.2452" y="-1" relative="1" as="geometry">
+                        <mxPoint x="-34" y="-9" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="Activity" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="190" width="80" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="View" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="310" y="120" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" style="edgeStyle=none;html=1;" edge="1" parent="1" source="4">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="380" y="180" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="extends" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="10">
+                    <mxGeometry x="0.2708" relative="1" as="geometry">
+                        <mxPoint x="20" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" value="MyView" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="310" y="220" width="140" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="onDraw(Canvas cv)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="4">
+                    <mxGeometry x="10" y="60" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Overrides" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="4">
+                    <mxGeometry x="20" y="30" width="60" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

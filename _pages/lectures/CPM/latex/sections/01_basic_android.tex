@@ -1,0 +1,242 @@
+The android framework for building applications was developed in C and wrapped in java. 
+The java virtual machine was also written in C and optimized for small devices and cores. 
+The framework itself was based in reuse and extension patterns.   
+
+The \textbf{application framework} is a \textbf{high level library in java} suitable to the creation
+of user android applications. In other words, it's the basic structure underlying the system (Android API).  
+The framework also creates the higher-level Android management services (Java).  
+
+\begin{itemize}
+    \item Activity manager
+    \item Content manager 
+    \item Resource manager 
+    \item Location manager 
+    \item Notification manager
+\end{itemize}
+
+\subsection{Application components}
+The android applications can contain serveral independent components:  
+\begin{itemize}
+    \item Activities 
+    \item Services 
+    \item Broadcast Receivers 
+    \item Content providers 
+\end{itemize}
+
+\subsubsection{Activities}
+\begin{itemize}
+    \item Contain a portion of the user interface
+    \item Execute a well-defined task inside the application 
+    \item Are subclasses of the android.app.Activity class
+    \item Are usually composed by a hierarchy of Views
+\end{itemize}
+
+\subsubsection{Services}
+\begin{itemize}
+    \item Don't have user interface, like the activities
+    \item Can execute in background for indeterminate period
+    \item It's possible to estabilish a connection with the service and communicate through a
+    well-defined programming interface
+\end{itemize}
+
+\subsubsection{Broadcast}
+It handles notifications and the applications react to then. 
+\begin{itemize}
+    \item Can receive and react to notification received from the system or other applications 
+    \item Applications can initiate a notification 'broadcast' 
+\end{itemize}
+
+\subsubsection{Content providers} 
+Basically allow the comunication of data between applications.
+\begin{itemize}
+    \item Make available to other applicationo a data collection maintaned by this application
+    \item Define an interface to access, add and update the supported data types
+\end{itemize}
+
+\subsection{Component activation}
+
+\subsubsection{Activities and Services}
+\hl{Activities and services are activated through an \textbf{Intent}.}
+
+The \textbf{intent} identify the component or specify actions for activities and services.  
+
+A explicit intent contains the:
+\begin{itemize}
+    \item Class reference of the desitnation
+    \item Specification of an action, category, data (in the form of url) and possibly extra information.
+\end{itemize}
+
+Once the specifications are given, the android will try to find a matching component capable of executing ht eaction in the data (or data type) specified.
+When activities and services are declared in the \textbf{manifest} they can specify the \textit{intent-filters}, describing their accepting intents.
+
+An example is calling the activity using an intent:
+\begin{lstlisting}
+val otherActivity: Intent = Intent(thisActivity, OtherActivity::class.java);
+thisActivity.startActivity(otherActivity);
+\end{lstlisting}
+
+\subsubsection{Broadcast receivers}
+The intents for activating broadcast receivers indentify a \textbf{message} to be delivered to matching receivers.
+The message is specificied using: action, category, data and extra info.
+
+\begin{lstlisting}
+sendBroadcast(Intent);      // Sends the intent.
+onReceive(Context, Intent); // If a broadcast receiver was installed and matches the intent, this method will be called.
+\end{lstlisting}
+
+\subsubsection{Content providers}
+When declared in the manifest must have an 'authority'. The 'authority' must recognize a name for 
+its data collection. 
+
+The content providers supports the CRUD operations on the specified collection. 
+
+They are usually activated by the method \textbf{getContentResolver} and the \textbf{ContentResolver} can
+insert, update, delete and query an information.
+
+\begin{lstlisting}
+ContentResolver resolver = getContentResolver();
+Uri uri = Uri.parse("content://<authority>/<data-collection>[/<item>]"); 
+resolver.query(Uri uri, String[] projection, Bundle queryArgs, CancellationSignal cancellationSignal);
+resolver.delete(Uri uri, Bundle extras); 
+resolver.insert(Uri uri, ContentValues values);
+resolver.update(Uri uri, ContentValues values, Bundle extras);
+\end{lstlisting}
+
+\subsection{Intent (start an activity example)}
+
+All the intents have a name (action) and can gave nire data associated (e.g uri, category, extra info). 
+
+\hl{The intents can also be \textbf{explicit} with a class reference (inside an app).}
+
+There're many predefined intents. 
+
+This first example matches the android activity in the Dialer application, that allows the 
+user to make a phone call, declared in an intent-filter, that can handle this action.
+
+\begin{lstlisting}
+val intent = Intent(Intent.ACTION_DIAL);
+startActivity(intent);
+\end{lstlisting}
+
+This second example, matches an activity that makes a phone call, but for a given number.
+\begin{lstlisting}
+val intent = Intent(Intent.ACTION_CALL);
+Uri.parse("tel:555-555-555").also{intent.date = it};
+startActivity(intent); 
+\end{lstlisting}
+
+Creating an intent to start an activity externally the app: 
+\begin{lstlisting}
+Intent LaunchIntent = getActivity().getPackageManager().getLaunchIntentForPackage(CALC_PACKAGE_NAME);
+startActivity(LaunchIntent);
+\end{lstlisting}
+
+
+\subsubsection{Intents data}
+\hl{Intents \textbf{can transport data between components}}. In other words, if the application is currently running in an activity,
+we can initiate another activity and parse the actual information to it by using intents. 
+
+The \textbf{data} property can be used for any kind of a Uri. The calling and new app components uses the Intent \textbf{data} property
+of the Uri type, by calling \textbf{setData()} and \textbf{getData()} methods to set it. 
+
+The Extra internal field is used for arbitrary data types. 
+
+It is a \textbf{Bundle} : set of (name, value) pairs organized in a hash table.
+\begin{itemize}
+    \item The value can be a String, simple type, or an array.
+    \item Can also be any Serializabe or Parcelable (more efficient) object
+    \item The values are inserted with some \textbf{putExtra(String name, ... value)} method and retrieved
+    with \textbf{get...Extra(String name)}.
+\end{itemize}
+
+\begin{lstlisting}
+override fun onCreate(savedInstanceState: Bundle?){
+    super.onCreate(savedInstanceState);
+    ...
+    /* Activities have an intent property */ 
+
+    val fName = intent.getStringExtra("firstName");
+    val lName = intent.getStringExtra("lastName");
+}
+\end{lstlisting}
+
+\begin{tcolorbox}[colback=red!5,colframe=red!75!black, title=Disadvantages of using Bundle]
+When used to pass information between Android components the bundle is serialized 
+into a binder transaction. The total size for all binder transactions in a process is 1MB. 
+If you exceed this limit you will receive this fatal error: \texttt{Failed binder transaction}. 
+
+It's recommend that you keep the data in these bundles as small as possible because 
+it's a shared buffer, anything more than a few kilobytes should be written to disk.
+\end{tcolorbox}
+
+\subsubsection{Activity retuning data}
+\hl{Specially invoked activities \textbf{can return data}.}
+This can be done by calling a new activity with \textbf{startActivityForResult(...)}.
+
+Besides the intent, it has a requestCode(Int) as a parameter. The new activity should create 
+a \textbf{result Intent}, fill it with the result data, and call \textbf{setResult}, passing this 
+intent before finishing. 
+
+Called activity sending value: 
+\begin{lstlisting}
+...
+val resultIntent = Intent();
+resultIntent.putExtra("some_key", "String data");
+setResult(Activity.RESULT_OK, rsultIntent);
+finish();
+\end{lstlisting}
+
+Original activity receiving value:
+\begin{lstlisting}
+override fun onActivityResult(requestCode, resultCode,: Int, data: Intent){
+    super.onActivityResult(requestCode, resultCode, data);
+    when(requestCode){
+        MY_CHILD_ACTIVITY ->
+            if(resultCode == Activity.RESULT_OK){
+                val resultValue = data.getStringExtra("some_key"); 
+                ...
+            }
+    }
+}
+\end{lstlisting}
+
+
+\subsection{Colletion of elements}
+In android we might want to display a collection/list of elements to the user and this 
+list might suffer some updates.  
+\hl{For this, we must use the \texttt{ArrayAdapter} class.}
+If we want to personalize the adapter, we must override this class. 
+
+\begin{lstlisting}[title=ArrayAdapter Class Implementation]
+class MainActivity : AppCompatActivity() {
+    private val adapter by lazy { RestaurantAdapter() }
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        supportActionBar?.setIcon(R.drawable.rest_icon)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        setContentView(R.layout.activity_main)
+        app.adapter = RestaurantAdapter(this, app.rests)
+    
+        val list = findViewById<ListView>(R.id.listview)
+        list.adapter = app.adapter
+    } 
+
+    
+    inner class RestaurantAdapter : ArrayAdapter<Restaurant>(this@MainActivity, R.layout.list_row, rests) {
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            val row = convertView ?: layoutInflater.inflate(R.layout.list_row, parent, false)
+            val r = rests[position]
+            row.findViewById<TextView>(R.id.title).text = r.name
+            row.findViewById<TextView>(R.id.address).text = r.address
+            val symbol = row.findViewById<ImageView>(R.id.symbol)
+            when (r.type) {
+                "sit" -> symbol.setImageResource(R.drawable.ball_red)
+                "take" -> symbol.setImageResource(R.drawable.ball_yellow)
+                "delivery" -> symbol.setImageResource(R.drawable.ball_green)
+            }
+            return row
+        }
+    }
+}
+\end{lstlisting}
